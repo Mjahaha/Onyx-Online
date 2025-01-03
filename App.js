@@ -1,10 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Banner from './components/Banner';
 import MapScreen from './components/Map';
-import TestScreen from './components/TestScreen';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import MyScrollView from './components/MyScrollView';
+import NewFormButton from './components/NewFormButton';
+
 
 export default function App() {
   return (
@@ -13,18 +11,12 @@ export default function App() {
       <View style={styles.content}>
         <MapScreen />
       </View>
+      <NewFormButton />
     </View>
   );
 }
-//<Banner style={styles.banner} />
-/*
-    <View style={styles.container}>
-      <Banner style={styles.banner} />
-      <View style={styles.content}>
-        <MapScreen />
-      </View>
-    </View>
-    */
+
+
 
 const styles = StyleSheet.create({
   container: {
