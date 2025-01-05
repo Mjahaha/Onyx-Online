@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import * as Location from 'expo-location';
+import { createRecord, getRecords } from '../database/CRUD';
 
-const testData = [
-  { id: 1, title: 'Bensons', coordinate: { latitude: -32.251706, longitude: 148.569655 } },
-  { id: 2, title: 'Pridgeons', coordinate: { latitude: -32.256918, longitude: 148.64977 } },
-  { id: 3, title: 'Bunnings', coordinate:{ latitude: -32.260862, longitude: 148.647195 } },
-];
+const MapScreen = (props) => {
 
-const MapScreen = () => {
+  const [points, setPoints] = useState(props.records);
 
-  const [points, setPoints] = useState(testData);
+  useEffect(() => {
+    // Update points when props.recordData changes
+    if (Array.isArray(props.records)) {
+      setPoints(props.records);
+    }
+  }, [props.records]);
 
   const [location, setLocation] = useState(null);
   useEffect(() => {
@@ -38,23 +40,28 @@ const MapScreen = () => {
           zoomEnabled={true}           // Enable zoom
           rotateEnabled={false}
           pitchEnabled={false}
-
           region={location ? {
             latitude: location.latitude,
             longitude: location.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           } : undefined}
+          onPress={event => { 
+            const coords = event.nativeEvent.coordinate;
+            setPoints([...points, { id: points.length + 1, title: 'New Point', coordinate: coords }]);
+            createRecord(
+              {coordinate: coords,}
+            ); }}
       >
-
-      {points.map(point => (
+      {points.map((point, index) => (
         <Marker
-        key={point.id}
+        key={point.id || index} 
         coordinate={point.coordinate}
-        title={point.title} />
+        />
       ))} 
 
         </MapView>
+        <Text>There are {points.length}</Text>
     </View>
     )
   return (
@@ -80,13 +87,12 @@ const styles = StyleSheet.create({
 export default MapScreen;
 
         /*
-        {points.map(point => (
-          <Marker
-            key={point.id}
-            coordinate={point.coordinate}
-            title={point.title}
-          />
-        ))}
+
+      {points.map(point => (
+        <Marker
+        coordinate={point.coordinate}
+        title={point.title} />
+      ))} 
         */
 
 /*

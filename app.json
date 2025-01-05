@@ -6,7 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
+    "reactNativeRuntimeVersion": "61.0.0",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -15,16 +16,22 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-              "NSLocationWhenInUseUsageDescription": "We need your location to show you nearby places.",
-              "NSLocationAlwaysUsageDescription": "We need your location for better map functionalities."
-            }
+        "NSLocationWhenInUseUsageDescription": "We need your location to show you nearby places.",
+        "NSLocationAlwaysUsageDescription": "We need your location for better map functionalities."
+      },
+      "bundleIdentifier": "com.jamespridgeon.OnyxOnline"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,7 +42,13 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
-      ]
-    ]
+      ],
+      "expo-sqlite"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2d9bf118-eb04-4bcf-a7c9-e52a64df3223"
+      }
+    }
   }
 }
